@@ -1,0 +1,13 @@
+#! /usr/bin/env bash
+
+PROGRAM="${1}";
+APP_PATH="${HOME}/dev/${PROGRAM}";
+
+if [ ! -d ${APP_PATH} ]; then
+  echo "Project does not exist!";
+  exit 1;
+fi
+
+tmux new-session -d -n "Work" -c "${APP_PATH}" -s ${PROGRAM}
+tmux send-keys -t ${PROGRAM}:0 "init-session ${PROGRAM} ${APP_PATH}" ENTER
+tmux switch-client -t ${PROGRAM};
